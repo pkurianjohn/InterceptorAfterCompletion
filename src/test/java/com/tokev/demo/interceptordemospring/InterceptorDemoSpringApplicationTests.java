@@ -28,7 +28,7 @@ class InterceptorDemoSpringApplicationTests {
     @DisplayName("Invoke API with non string response and no wait. As it is non string, the response gets committed after audit event, but main thread does not wait for audit event thread, so response gets committed immediately")
     void nonStringContentTypeReturnsAfterAuditEventWithMainThreadNoWait() {
         long timeBeforeInvoke = System.currentTimeMillis();
-        this.restTemplate.getForObject("http://localhost:"+port+"/non-string-response", String.class);
+        this.restTemplate.getForObject("http://localhost:"+port+"/non-string-response?thread", String.class);
         long timeAfterInvoke = System.currentTimeMillis();
         Assertions.assertTrue((timeAfterInvoke - timeBeforeInvoke) < 3000);
     }
@@ -37,7 +37,7 @@ class InterceptorDemoSpringApplicationTests {
     @DisplayName("Invoke API with non string response and wait. As it is non string, the response gets committed after audit event, as main thread wait for audit event thread, response gets committed only after audit event is completed")
     void nonStringContentTypeReturnsAfterAuditEventWithMainThreadWait() {
         long timeBeforeInvoke = System.currentTimeMillis();
-        this.restTemplate.getForObject("http://localhost:"+port+"/non-string-response?wait", String.class);
+        this.restTemplate.getForObject("http://localhost:"+port+"/non-string-response", String.class);
         long timeAfterInvoke = System.currentTimeMillis();
         Assertions.assertTrue((timeAfterInvoke - timeBeforeInvoke) >= 3000);
     }

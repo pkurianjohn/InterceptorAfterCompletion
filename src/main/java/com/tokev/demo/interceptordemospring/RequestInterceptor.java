@@ -3,6 +3,9 @@ package com.tokev.demo.interceptordemospring;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.Objects;
+
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,9 +31,10 @@ public class RequestInterceptor implements HandlerInterceptor {
         log.info("Before writing audit event");
         AuditEvent auditEvent = new AuditEvent();
         auditEvent.start();
-        // If parameter 'wait' (value not require) is passed, main thread will wait for spawned thread to complete execution
-        if(request.getParameter("wait") != null)
+        // If parameter 'thread' (value not require) is not passed, main thread will wait for spawned thread to complete execution
+        if(Objects.isNull(request.getParameter("thread"))) {
             auditEvent.join();
+        }
         log.info("After writing audit event");
     }
 }

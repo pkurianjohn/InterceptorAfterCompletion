@@ -4,8 +4,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Objects;
-
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,12 +27,7 @@ public class RequestInterceptor implements HandlerInterceptor {
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         log.info("Interceptor - in afterCompletion");
         log.info("Before writing audit event");
-        AuditEvent auditEvent = new AuditEvent();
-        auditEvent.start();
-        // If parameter 'thread' (value not require) is not passed, main thread will wait for spawned thread to complete execution
-        if(Objects.isNull(request.getParameter("thread"))) {
-            auditEvent.join();
-        }
+        Thread.sleep(3000);
         log.info("After writing audit event");
     }
 }

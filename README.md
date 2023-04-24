@@ -2,7 +2,5 @@
 
 In order to test from any HTTP client, user below URLs after starting the application:
 
-1. String content with no wait. Response will be immediate : http://localhost:8080/string-response?thread
-2. String content with wait. Response will be immediate : http://localhost:8080/string-response
-3. Non String content with no wait. Response will be immediate : http://localhost:8080/non-string-response?thread
-4. Non String content with wait. Response will be only after the audit event is completed. Three seconds delay is added to simulate audit event : http://localhost:8080/non-string-response
+1. String content. Response will be immediate : http://localhost:8080/string-response
+2. Non String content. Response will be immediate : http://localhost:8080/non-string-response

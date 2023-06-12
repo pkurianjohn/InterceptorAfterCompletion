@@ -33,10 +33,6 @@ public class MappingJackson2HttpMessageConverterWithContentLength extends Mappin
       };
       super.writeInternal(object, type, newOutputMessage);
 
-      byteArrayOutputStream.flush();
-      byteArrayOutputStream.close();
-
-
       HttpHeaders headers = outputMessage.getHeaders();
       headers.setContentLength(byteArrayOutputStream.toByteArray().length);
       StreamUtils.copy(byteArrayOutputStream.toByteArray(), outputMessage.getBody());
